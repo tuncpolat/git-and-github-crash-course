@@ -1,0 +1,22 @@
+https://git-scm.com/docs
+
+# Terminal Crash Course (Windows)
+ls -> print current directory
+ls -a -> print also hidden files 
+start . -> open explorer in particular directory
+cd -> change direction
+.. cd -> go one directory back
+pwd -> print current directory/location
+mkdir <name of folder> -> create folder
+touch <name of file.ext> -> create file
+rm <name of file.ext> -> delete file (permament - attention: file is gone!)
+rm -rf <name of folder> delete a directory (flags: r = recursive, f = force)
+
+# The Very Basics Of Git: Adding & Committing
+git status -> gives information on the current status of a git repi and its content
+git init -> Initialize git repo (.git)
+Git tracks top-down (nested folders - do not init a repo inside of a repo)
+
+Working Directory --- git add ---> Staging --- git commit ---> Repo 
+
+Use "git add" to group changed files together to staging phase to prepare for commit, then commit it to repo
