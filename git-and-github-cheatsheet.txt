@@ -20,3 +20,11 @@ Git tracks top-down (nested folders - do not init a repo inside of a repo)
 Working Directory --- git add ---> Staging --- git commit ---> Repo 
 
 Use "git add" to group changed files together to staging phase to prepare for commit, then commit it to repo
+
+git log -> retrieve information of the commits
+
+# Commits in Detail
+Make atomic commits - each commits should focus on a single thing (for example one feature)
+Use present tense imperative style for commit messages
+When you use only "git commit" it will open efalut editor VIM to write commit message. If you write ":wq " and then enter to go out of VIM.
+So therefore we will use another default editor (VS) -> git config --global core.editor "code --wait"
