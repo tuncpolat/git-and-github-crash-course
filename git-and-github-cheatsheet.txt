@@ -12,6 +12,8 @@ touch <name of file.ext> -> create file
 rm <name of file.ext> -> delete file (permament - attention: file is gone!)
 rm -rf <name of folder> delete a directory (flags: r = recursive, f = force)
 
+==========================================
+
 # The Very Basics Of Git: Adding & Committing
 git status -> gives information on the current status of a git repi and its content
 git init -> Initialize git repo (.git)
@@ -22,6 +24,8 @@ Working Directory --- git add ---> Staging --- git commit ---> Repo
 Use "git add" to group changed files together to staging phase to prepare for commit, then commit it to repo
 
 git log -> retrieve information of the commits
+
+==========================================
 
 # Commits in Detail
 Make atomic commits - each commits should focus on a single thing (for example one feature)
@@ -34,4 +38,15 @@ git commit --amend -> If you forgot a file or made a typo in (just one) commit m
 Example:
 git commit -m "some commit"
 git add forgotten_file
-git commit --amend
+git commit --amend (amend will open editor - if you had a typo in commit message you can edit it here)
+
+If you just had a typo you can just use "git commit --amend" to fix it in the editor
+
+.gitignore -> file to tell git what to ignore (for example: log files, operating system files, secrets, api key, dependencies)
+
+.DS_Store will ignore files named .DS_Store
+folderName/ will ignore an entire directory
+*.log will ignore any files with .log extension
+
+
+==========================================
