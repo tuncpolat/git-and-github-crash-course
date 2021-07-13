@@ -28,3 +28,10 @@ Make atomic commits - each commits should focus on a single thing (for example o
 Use present tense imperative style for commit messages
 When you use only "git commit" it will open efalut editor VIM to write commit message. If you write ":wq " and then enter to go out of VIM.
 So therefore we will use another default editor (VS) -> git config --global core.editor "code --wait"
+
+git log --oneline -> commit message is prefixed with information on the same line (format logs)
+git commit --amend -> If you forgot a file or made a typo in (just one) commit message (ago), instead of making a new commit you can amend a commit 
+Example:
+git commit -m "some commit"
+git add forgotten_file
+git commit --amend
