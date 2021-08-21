@@ -30,7 +30,7 @@ git log -> retrieve information of the commits
 # Commits in Detail
 Make atomic commits - each commits should focus on a single thing (for example one feature)
 Use present tense imperative style for commit messages
-When you use only "git commit" it will open efalut editor VIM to write commit message. If you write ":wq " and then enter to go out of VIM.
+When you use only "git commit" it will open defalut editor VIM to write commit message. If you write ":wq " and then enter to go out of VIM.
 So therefore we will use another default editor (VS) -> git config --global core.editor "code --wait"
 
 git log --oneline -> commit message is prefixed with information on the same line (format logs)
@@ -50,3 +50,15 @@ folderName/ will ignore an entire directory
 
 
 ==========================================
+
+# Working with Banches
+Master is just another branch.
+HEAD is a pointer that refers to the current "location" in your repo. Points to a particular branch (for example HEAD -> master)
+
+git branch -> show current branches
+git branch <branch-name> -> create a new branch (based upon the current HEAD... if you branch from branch it will use this branch as starting point)
+git switch <branch-name> -> switch between branches (old way: git checkout - does a lot more)
+git switch -c <branch-name> -> create and switch to a new branch
+
+If you switch a branch with unstaged changes, you will get an error. The new branch will not about these changes. Options: commit or stash.
+
