@@ -61,4 +61,4 @@ git switch <branch-name> -> switch between branches (old way: git checkout - doe
 git switch -c <branch-name> -> create and switch to a new branch
 
 If you switch a branch with unstaged changes, you will get an error. The new branch will not about these changes. Options: commit or stash.
-
+BUT: If you have no conflicts when you switch between the branches, the changes will be switched too. So you will have the changes you made in the file you switched to.
