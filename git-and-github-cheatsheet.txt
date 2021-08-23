@@ -19,7 +19,7 @@ git status -> gives information on the current status of a git repi and its cont
 git init -> Initialize git repo (.git)
 Git tracks top-down (nested folders - do not init a repo inside of a repo)
 
-Working Directory --- git add ---> Staging --- git commit ---> Repo 
+Working Directory --- git add ---> Staging --- git commit ---> Repo (short form: git commit -a -m "commit message")
 
 Use "git add" to group changed files together to staging phase to prepare for commit, then commit it to repo
 
@@ -37,7 +37,7 @@ git log --oneline -> commit message is prefixed with information on the same lin
 git commit --amend -> If you forgot a file or made a typo in (just one) commit message (ago), instead of making a new commit you can amend a commit 
 Example:
 git commit -m "some commit"
-git add forgotten_file
+git add forgotten_file 
 git commit --amend (amend will open editor - if you had a typo in commit message you can edit it here)
 
 If you just had a typo you can just use "git commit --amend" to fix it in the editor
@@ -62,3 +62,53 @@ git switch -c <branch-name> -> create and switch to a new branch
 
 If you switch a branch with unstaged changes, you will get an error. The new branch will not about these changes. Options: commit or stash.
 BUT: If you have no conflicts when you switch between the branches, the changes will be switched too. So you will have the changes you made in the file you switched to.
+
+git branch -d <branch-name> -> delete branch when its fully merged. You can't be in the branch you want to delete.
+git branch -D <branch-name> -> delete force branch, even when its not fully merged.
+git branch -m <new-branch-name> -> rename (move) branch name. You have to be in this branch.
+git branch -v -> get a little bit more info: last commit + message
+
+==========================================
+
+# Merging Branches
+
+Incorporate changes from one branch into another.
+- we merge branches, not specific commits
+- we always merge to the current HEAD branch (switch to the branch you want merge into)
+
+Fast-Forward Merge
+git switch master -> git merge <feature-branch-name> -> merge feauture branch into master branch. 
+Fast-Forward: No other commits from master. One branch has just additional commits (feauture branch). The other (master) doesn't have additional commits. It's a easy merge.
+
+
+Non-Fast-Forward Merge
+Scenario: I work on feature and make two commits. On the master someone else worked on and commited something new. If I want to merge and I don't get a merge conflict git will automatically generate 
+a merge commit. It will look like fast-forward merge, but it's a non-fast-forward one.
+If there is a conflict, we have to manually resolve it and git will automatically  generate a merge commit again.
+
+Merge conflicts
+<<<<<HEAD
+some code
+=====
+The content from your current HEAD (the branch you are trying to merge content into) is displayed between <<<HEAD and ==== symbols. (Accept Current Change, VS)
+ 
+=====
+conflict code
+>>>>>feature-branch
+
+The content from the branch you are trying to merge from is display between the ==== and >>>> symbols. (Accecpt incoming change, VS)
+
+How to resolve:
+1. Open the files with merge conflicts
+2. Edit file to remove the conflicts. Decide which you want to keep or keep both.
+3. Remove the conflict "markers" (symbols) in the document.
+4. Add your changes and then make a commit.
+
+
+==========================================
+
+# Comparing Changes with Git Diff
+
+
+
+
