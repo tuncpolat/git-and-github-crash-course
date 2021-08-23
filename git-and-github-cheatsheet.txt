@@ -109,6 +109,20 @@ How to resolve:
 
 # Comparing Changes with Git Diff
 
+We can use git diff to view changes between commits, branches, files, our working directory.
 
+git diff -> Without additional options, git diff will list all the changes in our working directory that are not staged for the next commit. (only unstaged)
+git diff HEAD -> lists all changes in the working tree since your last commit (staged and unstaged)
+git diff --staged or --cached -> will list the changes between the staging area and our last commit. (only staged)
+git diff --option <filename> -> show change from only the file.
+git diff branch1..branch2 -> will list the changes between the tips of branch1 and branch2
+git diff commit1..commit2 -> compare two commits, provide git diff with the commit hashes of the commits in question
 
+Reading diff
 
+diff --git a/file.txt b/file.txt (mostly same files - differences between these two files)
+index commit...hash (meta data - not important - hashes between the hashes of two files being compared)
+--- a/oldversion.format (file A gets - symbol for indicating changes)
++++ b/oldversion.format (file B gets + symbol for indicating changes)
+@@ chunk header @@ (- shows where file A starts (-3,) and how many lines are shown (-3,4). + shows the same thing but for file B (+start,how many lines) )
+chunk body (show what was changed)
