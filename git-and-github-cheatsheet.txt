@@ -126,3 +126,29 @@ index commit...hash (meta data - not important - hashes between the hashes of tw
 +++ b/oldversion.format (file B gets + symbol for indicating changes)
 @@ chunk header @@ (- shows where file A starts (-3,) and how many lines are shown (-3,4). + shows the same thing but for file B (+start,how many lines) )
 chunk body (show what was changed)
+
+==========================================
+
+# Git stash
+
+Why we need it? So sometimes you are on a feature branch, but you are not done. You don't want to make official commits and just switch to another branch to see what's going on there. 
+Maybe a co-worker wants to show you something...
+Imagine you are on a master and switch to a new branch. There you make different commits. Suddenly you want to switch back to master.
+You have to options
+1. You switch because there are no conflicts. Changes will just come with you to the master branch.
+2. Git won't let you switch because it detects potential conflicts. (Your local changes would be overwritten by checkout - commit or stash them)
+
+git stash -> is super useful command that helps you save changes that you are not yet ready to commit. You can stash changes and then come back to them later.
+Running git stash will take all uncomitted changes (staged and unstaged) and stash them, reverting the changes in your working copy.
+git stash pop -> to remove the most recently stashed changes in your stash and re-apply them to your working copy.
+
+So after stashing you can switch without taking these changes with you. These changes are not gone, they are stashed way.
+When you are done, you can go back to your branch and re-apply these changes with git stash pop (you can apply these changes everywhere).
+
+git stash apply -> same as git stash pop, but the stash will not be removed. This can be useful if you want to apply stashed changes to multiple branches.
+
+Working with multiple stashes
+git stash list -> view what you have stashed. 
+git stash apply <stash-id> -> you can apply a stash with a stash id  (see stash id's in list, for example stash@{2})
+git stash drop <stash-id> -> To delete a particular stash. With apply you don't drop a stash.
+git stash clear -> To clear out all stashes
