@@ -19,7 +19,7 @@ git status -> gives information on the current status of a git repi and its cont
 git init -> Initialize git repo (.git)
 Git tracks top-down (nested folders - do not init a repo inside of a repo)
 
-Working Directory --- git add ---> Staging --- git commit ---> Repo (short form: git commit -a -m "commit message")
+Working Directory --- git add ---> Staging --- git commit ---> Repo (short form: git commit -a -m "commit message" or git commit -am "commit message")
 
 Use "git add" to group changed files together to staging phase to prepare for commit, then commit it to repo
 
@@ -152,3 +152,77 @@ git stash list -> view what you have stashed.
 git stash apply <stash-id> -> you can apply a stash with a stash id  (see stash id's in list, for example stash@{2})
 git stash drop <stash-id> -> To delete a particular stash. With apply you don't drop a stash.
 git stash clear -> To clear out all stashes
+
+==========================================
+
+# Undoing changes & Time Traveling
+
+git checkout is like a Swiss Army knife. Does a lot of things, that's why we used git switch before.
+
+git checkout commit <commit-hash> -> switch to previous commit (first 7 hashes are enough). You can see how things looked like on this particular (prev) commit.
+
+You will get "Detached HEAD state" message. Work is not lost.
+Usually HEAD refs to branch where you at and the last commit of this branch (tip of branch). When we checkout a particular commit, 
+HEAD points at that commit rather than the branch pointer.
+
+So with Detached HEAD you have three options:
+1. Stay in detached HEAD to examine the content of the old commit. Poke around, view the files etc.
+2. Leave and go back to wherever you were before - reattach the HEAD
+git switch <branch-name> -> re-attaching our detached HEAD. With this command the HEAD will point again to branch and of course it's last commit.
+git switch - -> if you don't know the name of the branch. You can just use "-". It will re-detach the HEAD on this branch.
+3. Create a new branch and switch to it. You can now make and save changes, since HEAD is no longer detached. HEAD will be reattached to the new branch.
+
+git checkout HEAD~1 -> checkout to the commit before HEAD (parent). HEAD~2 referts to 2 commits before HEAD.
+
+## Discarding Changes
+If you've made some changes to a file but don't want to keep them. We talk about unstaged changes in the working directory.
+
+git checkout HEAD <filename> or git checkout -- <filename> -> discard any changes in that file, reverting back to the HEAD. So go back to the last commit (where HEAD is).
+The other option would be to delete everything you don't want to keep manually.
+
+## Unmodifying files with git restore:
+git restore is a new command like git switch, as an alternative for git checkout.
+
+git restore <filename> -> same like git checkout HEAD <filename>. Note: this command is not "undoable". If you have uncommited changes in the file, they will be lost.
+git restore --source HEAD~1 <filename> -> will restore the contents of <filename> to its state from the commit prior to HEAD. You can also use a particular commit hash as the source.
+You can restore multiple commits. So you can switch from commit 1 to 2 etc. Just unstaged changes will be gone. And if you "switch" (restore) and you want to keep that as it is
+you have to stage and commit that.
+
+## Unstaging changes with git restore:
+If you have accidentally added a file to your staging area with git add and you don't want to include it in the next commit, you can use git restore to remove it from staging.
+
+git restore --staged <filename> -> remove from staging.
+
+## Undoing commits with git reset:
+Suppose you've just made a couple of commits on the master branch, but you actually meant to make them on a sep. branch instead. To undo those commits, you can use git reset.
+There are two resets: regular and hard.
+
+git reset <commit-hash> -> will reset the repo back to a specific commit. The commits are gone, not the changes. 
+
+Example: 
+git -am "mistake commit"
+git -am "another mistake commit"
+git log (to get commit hash)
+git reset <commit-hash> -> The changes are still here. We just remove the two commits. We just removed the commits not the changes. The changes are still in our working directory.
+1. This can be useful to take these changes to another branch. Now we would have to switch.
+2. We could also do git restore <filename>, than the mistake changes would also be gone.
+git reset --hard <commit-hash> -> same as git reset <commit-hash> but the changes are not in the working directory anymore. It will delete the last commit and associated changes.
+
+## Reverting commits with git revert:
+git revert is similiar to git reset but there are differences in accomplishing that:
+1. git reset actually moves the branch pointer backwards, eliminating commits
+2. git revert instead creates a brand new commit which reverses/undos the changes from a commit. 
+Because it results in a new commit, you will be prompted to enter a commit message.
+
+Which one should you use?
+If you want to reverse some sommits that other people already have on their machines, you should use revert.
+If you want to reverse commits that you haven't shared with others, use reset and no one will ever know.
+
+
+==========================================
+
+# Github: The Basics
+
+Github is a hosting platform for git repos.
+
+git clone <url>-> clone remote repo to your local machine (+ also git will initialize a new repo on your machine)
