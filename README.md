@@ -225,4 +225,14 @@ If you want to reverse commits that you haven't shared with others, use reset an
 
 Github is a hosting platform for git repos.
 
-git clone <url>-> clone remote repo to your local machine (+ also git will initialize a new repo on your machine)
+git clone <url> -> clone remote repo to your local machine with full git history (+ also git will initialize a new repo on your machine)
+git remote <url> -> tell local repo where to push and fetch code (tell destination)
+git remote -v -> show names (label) and urls of remotes
+git remote add <name> <url> -> add a new remote. A remote is really two things: a URL and a label (mostly origin, nothing special). To add a new remote, we need to provide both to Git.
+git remote rename <oldname> <newname> -> rename a remote
+git remote remove <name> -> remove remote repo.
+git push <remote-name> <branch> -> push work on Github (not Github specific). We need to sepcify the remote we want to push up to AND the specific local branch we want to push up to that remote.
+
+How to get code on github?
+1. Exisiting Repo: Create a new repo on Github, connect your local repo (add a remote), push your changes to Github.
+2. Start from Scratch: Create new repo, clone it down to your machine, do some work locally, push your changes to Github.
