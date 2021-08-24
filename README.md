@@ -251,3 +251,14 @@ How to get code on github?
 
 1. Exisiting Repo: Create a new repo on Github, connect your local repo (add a remote), push your changes to Github.
 2. Start from Scratch: Create new repo, clone it down to your machine, do some work locally, push your changes to Github.
+
+==========================================
+
+# Fetching & Pulling
+
+Remote Tracking Branches:
+It's a reference to the state of the master branch on the remote. I can't move this myself. It's like a bookmark pointing to the last known commit on the master branch on origin (remote). Points to the commit from the Github Repo. My HEAD and this reference (origin/master - <remote>/<branch>) can diverge from eachother (local vs repo reference).
+
+If you commit new stuff on your local branch the remote reference will not change, but the local one will.
+
+git branch -r -> view the remot branches our local repo knows about.
