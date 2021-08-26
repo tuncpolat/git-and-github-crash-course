@@ -256,9 +256,55 @@ How to get code on github?
 
 # Fetching & Pulling
 
-Remote Tracking Branches:
+## Remote Tracking Branches
+
 It's a reference to the state of the master branch on the remote. I can't move this myself. It's like a bookmark pointing to the last known commit on the master branch on origin (remote). Points to the commit from the Github Repo. My HEAD and this reference (origin/master - <remote>/<branch>) can diverge from eachother (local vs repo reference).
 
-If you commit new stuff on your local branch the remote reference will not change, but the local one will.
+If you commit new stuff on your local branch the remote reference (origin/main) will not change, but the local one will (HEAD -> main).
+We will get a message with git status something like this:
 
-git branch -r -> view the remot branches our local repo knows about.
+Your branch is ahead of 'origin/main' by x commits.
+So if you want that both references are on the same commit you can just push the new commits to Github.
+
+git branch -r -> view the remote branches our local repo knows about.
+git checkout origin/main -> you can go back to the commit where origin/main is still at (Detached HEAD state). SO we go there where we last time communicated with Github.
+
+## Working with remote branches:
+
+Imagine you clone a repo with master and feauture branch. The command "git branch" will not show the feauture branch.
+If you run "git branch -r" you will see the feauture branch (<remote>/<branch>). Why?
+
+By default my master branch is already tracking origin/master. The other branches are not connected by themselves.
+We have to do that! So we could:
+
+git checkout origin/feauture -> BUT in this case we would be in Detached HEAD. We don't want that. We want to work on that branches locally. Solution:
+git switch feature -> makes a local feauture branch AND sets it up to track the remote branch origin/feauture
+Other way: git checkout --track origin/feauture -> same thing but harder to remember
+
+## Fetching
+
+git fetch <remote> <branch> -> (default origin, otherwhise it will fetch all branches) will get stuff from a GitHub repo and bring them down to the local repository, not into our working directory.
+Fetching allows us to download changes from a remote repo, but those changes are not integrated into
+our working files. It lets you see what other have been working on, without having to merge those changes into your local repo.
+Think of it as "please go and get the latest information from Github, but don't screw up my working directory".
+If you fetch you have no the changes on my machine BUT I need to "git checkout origin/master" to see those changes.
+The remote tracking reference (origin/master) is now on this new changes. The master branch is untouched.
+
+Example
+You work on your local machine. Someone pushes a new commit to Github repo. You will not see that until you make git fetch.
+Here you will not see the changes. If you "git status" you will get a message like "Your brnch is behind 'origin/branch' by X commit, and can be fast-forwarded" (if you have no conflicts). To see the changes you can git checkout 'origin/branch'. And go back with "git switch <branch>' or "git checkout --'. If you want to integrate them you need git pull.
+
+## Pulling
+
+git pull <remote> <branch> -> unlike fetch, pull actually updates our HEAD branch with whatever changes are retrieved from the remote.
+
+You can think it like git pull = git fetch + git merge
+Where (branch) you run git pull from matters. There is where the merge happens.
+Pulls can result in conflicts! Then we have to fix conflicts and then commit the result.
+After this our branch is now ahead of origin/branch (remote), because we have a merge commit that is not in the Github repo.
+So we have to push this, so that both remote and local copy are up to date.
+
+git pull -> If we run git pull without specifying a particular remote or branch to pull from, git assumes the following:
+
+- remote will default to origin
+- branch will default to whatever tracking connection (-u) is configured for your current branch.
