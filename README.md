@@ -308,3 +308,39 @@ git pull -> If we run git pull without specifying a particular remote or branch 
 
 - remote will default to origin
 - branch will default to whatever tracking connection (-u) is configured for your current branch.
+
+==========================================
+
+# Git Collaboration Workflows
+
+Work on feauture branches. Not on master or main branch (centralized branch).
+After a feauture branch is complete you can merge it to master branch.
+
+## Merging in feature branches - Pull Request
+
+At some point a feauture branch will need to be merged into master branch.
+The best option is to make a pull request (not git native - feauture from Github).
+PRs allow developers to alert team-members to new work that needs to be reviewed.
+They provide a mechanism to approve or reject the work on a given branch. They also help facilitate discussion and feedback on the specific commits. "I have this new stuff I want to merge in to the master branch.... what do you all think about it?"
+
+Workflow:
+
+1. Do some work locally on a feauture branch
+2. Push up the feature branch to Github
+3. Open a pull request (Compare & Pull) using the feature branch just pushed up to github
+4. Wait for the PR to be approved and merged. Start a discussion on the PR. This part depends on the team structure.
+
+Pull Requests wit Conflicts
+
+Imagine you made a pull reuqest with a conflict. The steps to fix this looks like this:
+
+git fetch origin
+git switch fbranch -> the branch with the PR & Conflict. Now you see the feauture branch.
+git merge master -> merge main/master to feauture branch.
+Fix the conflicts in your code editor.
+git commit -am "Fix conflicts" -> now you know that if you merge this branch to the master, there will be no conflicts.
+git switch master
+git merge --no--ff fbranch -> merge fbranch to master. noff: no fastforward. Don't do fast forward merge if it detects that he can.
+git push origin master
+
+The PR is now successfully merged.
