@@ -504,7 +504,7 @@ There is a global git config file (and local ones for every repo). Any config va
 
 For example, we could define an alias "git ci" instead of having to type "git commit".
 In the config file it looks like this:
-
+(To open global config file: git config --global --edit)
 [ alias ]
 s = status
 l = log
