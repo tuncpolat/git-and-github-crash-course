@@ -419,3 +419,36 @@ fixup HASH "Original commit message"
 
 Delete a commit and all the changes we did:
 drop HASH "Original commit message" (this will be deleted)
+
+==========================================
+
+# Git Tags
+
+Nowadays, tags are used for version releases in projects (v4.1.0).
+Tags are pointers that refer to particular points in Git history (and won't change, doesn't matter how many commits will come).
+Tags are used for important moments.
+Two types of tags: lightweight (name/label) and annotation (+ meta data: author, email etc.) tags.
+
+## Sidenote: Versioning
+
+Here a link for more information: https://semver.org/lang/de/
+2.1.4
+Major Release . Minor Release . Patch Release
+
+Initial Release: 1.0.0
+Small Changes/Patch Releases: 1.0.1 - do not contain new feautures or significant changes. They typically signify bug fixes and other changes that do not impact how the code is used.
+Minor Release: 1.1.0 - signify new features or functionality, but project is still backwards compatible. No breaking changes. New feautures is optional and should not force users to rewrite their own code.
+Major Release: 2.0.0 - signify significant changes that is no longer backwards compatible. Feautures may be removed or changed substantially.
+
+git tag -> will print a list of all the tags in the current repository
+git tag -l "STARsearchtermSTAR" -> will print a list of tags that include the searchterm in their name.
+git checkout <tagname> -> checkout to particular tag (attached HEAD mode)
+git diff <tagname1>..<tagname2> -> differences between these two tags
+git tag <tagname> -> (by default) create a lightweight tag
+git tag -a <tagname> -> create annotated tag. WIll prompt you to code editor.
+git show <tagname> -> show meta data of tag
+git tag <tagname> <commitHash> -> tag (previous) commits
+git tag -f <tagname> <commitHash> -> move tagname to other commit
+git tag -d <tagname> -> delete tag
+git push --tags -> by default git push will not push tags tp remote server. Thats why we use --tags option to push tags with it.
+or git push <remotename> <tagname> -> push a single tag to remote server (Github)
