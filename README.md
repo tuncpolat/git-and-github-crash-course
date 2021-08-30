@@ -452,3 +452,63 @@ git tag -f <tagname> <commitHash> -> move tagname to other commit
 git tag -d <tagname> -> delete tag
 git push --tags -> by default git push will not push tags tp remote server. Thats why we use --tags option to push tags with it.
 or git push <remotename> <tagname> -> push a single tag to remote server (Github)
+
+==========================================
+
+# Reflogs
+
+Reflogs are here to retrieve lost commits. Reflogs stands for reference logs.
+Git keeps a record of when the tips of branches and other references were updated in the repo.
+We can view and update these reference logs using the git reflog command.
+There are different type of references in git (for example HEAD). In .git folder these logs are in the folder "logs".
+For example HEAD reference logs are in .git/logs/HEAD.
+There you will see what happened with the HEAD reference. All the logs are there.
+Reflogs also expire. Git cleans out old entries after around 90 days. Also git only keeps reflogs on your local activity.
+They are not shared with collaborators.
+
+git reflog -> different subcommands like show, expire, delete, exists
+git reflog show HEAD -> same as git reflog. Will show the log of a specific reference (defaults to HEAD)
+git reflog show main -> View logs for the tip of the main branch
+
+How does a reflog reference look like?
+name@{qualifier} -> we can access a specific reflog like this.
+For example you can checkout to HEAD two moves ago (in reflog):
+git checkout HEAD@{2}
+Different to this: git checkout HEAD~2 -> This means the parent of head and then its parent, two generations of parents ago.
+So basically the grandparent commit.
+You can also do this:
+git reflog master@{one.week.ago} -> go back to the master branch one week ago.
+git checkout bugfix@{2.days.ago}
+git diff main@{0} main@{yesterday}
+
+## Reflog Rescue
+
+We can sometimes use reflog entries to access commits that seem lost and are not appearing in git log.
+Imagine you commited (x) something and deleted afterwards. With reflog you can see the commit (x) and than how you deleted it.
+So if you want to rescue it, you can because there is a reference on it. (But not in git log)
+
+Example:
+git -am "Something"
+git reset --hard <commitHash from previous Something> -> we deleted the something commit right now. Now this commit is not here anymore. We went back in commits.
+git reflog -> here we will see where the "Something" commit was.
+git checkout <commitHash from Something which we saw in reflog or name@{qualifier}> -> it's saved! OR
+git reset --hard <name@{qualifier}> -> now it's in the branch in again. It's saved.
+
+You can do this even for rebasing!
+
+==========================================
+
+# Custom Git Aliases
+
+There is a global git config file (and local ones for every repo). Any config variables that we change in the global file will be applied across all Git repos. This config file is important to add some basic aliases.
+
+For example, we could define an alias "git ci" instead of having to type "git commit".
+In the config file it looks like this:
+
+[ alias ]
+s = status
+l = log
+ci = commit
+
+or you can make set aliases like this:
+git config --global alias.ci commit
