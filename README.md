@@ -397,3 +397,25 @@ git rebase --continue.
 ==========================================
 
 # Cleaning up history with the interactive rebase
+
+With the interactive rebase command we can reword commits, fixing up/squashing commits and dropping commits.
+
+If we rewrite history we don't want to do that to commits that others have on their machines. So use this before we push this to Github.
+
+git rebase -i HEAD~4 -> -i stands for interactive. We will enter the interactive mode. Here we want to do that on our current location 4 commits ago. This will open our editor with all our commits from the last commit till the commit we specified (in reversed order compared to git log). Next to the commits there is a "pick" command. In the editor all our possible commands are explained. For example:
+
+Reword a commit we can use:
+reword HASH "Original commit message"
+After you close the file, another file will open so you can reword it.
+
+Combine one commit into previous:
+pick HASH "Original commit message" (the commit below will go into this)
+fixup HASH "Original commit message" (the commit you want to meld into previous commit and discard this commit log)
+
+Combine two commits into previous:
+pick HASH "Original commit message" (the others will go into this)
+fixup HASH "Original commit message"
+fixup HASH "Original commit message"
+
+Delete a commit and all the changes we did:
+drop HASH "Original commit message" (this will be deleted)
