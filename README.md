@@ -344,3 +344,56 @@ git merge --no--ff fbranch -> merge fbranch to master. noff: no fastforward. Don
 git push origin master
 
 The PR is now successfully merged.
+
+How to review a pull request locally?
+git fetch -> to get all of the (new) branches.
+git switch newbranch -> switch to that branch with the pull request.
+Look at it locally. Imagine app crashes. You can go to Github (or VS Code Extention) and tell the contributer to fix the bugs.
+The contributer have to commit new changes and make a pull request again.
+
+Branch Protection Rules - You have the option to give some branches protection so no one can merge stuff without you.
+You can configure this in Github.
+
+## Open Source Contribution - Forking
+
+Forking means that you clone this repo to your Github account. You can make changes and push to your own fork before making pull request in the offical "main" repo. It's very commonly used on large open-source projects where there may be thousands of contributors with only a couple maintainers.
+
+Forking is feauture of Github (like Pull Requests). To fork means to make a personal copy of a repository.
+When we fork a repo, we are basically asking Github "Make me my own copy of this repo" please".
+
+## Fork & Clone Workflow
+
+Imagine you want to contribute to a repository. If you clone this repo and want to push something, it wouldn't work because you are not a official contributor. Instead, you can fork this repo and you will have a own copy of this repository. With this repo you can whatever you want. If you do some work and push it to your repo you will see a message "This branch is 1 commit ahead of "originalrepoowner:master". So you are one commit ahead of the repo you forked from. If you want to contribute to this open source code you have now the opportunity to make a Pull Request. With this request you ask the owner of the original repo "Hey I have a change here, please merge it to the original repo".
+
+In this workflow you have basically two remote addresses. One is the original which is the remote for your local forked repo. The other one is the upstream or original remote, which is connected to the original repo. You can use this remote to pull daily changes from the original repo to your local repo. You can't push to this upstream remote, thats why you first push it to your origin repo (forked repo) and than make a pull request on GitHub. If this PR is accepted its in the original repo. Lastly, you can pull again the upstream remote, because your changes are accepted. You need the latest version.
+The flow looks like this:
+
+1. Fork project
+2. Clone the fork to your machine
+3. Add (pull) upstream remote (to the originl repo) -> git remote add upsteam <githubUrlFromOriginalRepo>
+4. Do some work
+5. Push to origin (forked repo)
+6. Open PR
+
+==========================================
+
+# Rebasing
+
+You don't have to use this command. It's similiar (alternative) to merging. You can use it as a cleanup tool.
+
+Imagine you work on a feature branch. While you work on that branch, other collaborators push to the master branch.
+You want these changes on your feature branch so you make merge commits. Now the feature branch has a bunch of merge commits. If the master branch is very active, the feauture branch's history is muddied. Rebasing can help with this. Rebasing rewrites history by creating new commits for each of the original feature branch commits. With rebase you will get a linear structure in your commits. Your project will look cleaner.
+
+git switch feauture
+git rebase master
+
+When not to use rebase? Never rebase commits that have been shared with others. If you have already pushed commits up to Github... DO NOT rebase them unless you are positive no one on the team is using those commits.
+
+When we rebase conflicts can appear. Rebase starts with the rebase but it will not finish until you resolve the conflicts. You can now abort (git rebase --abort) the rebase or resolve the conflicts (The incoming change is now the master, because we want the changes from master into our feature branch) and then run:
+
+git add . (no commit)
+git rebase --continue.
+
+==========================================
+
+# Cleaning up history with the interactive rebase
